@@ -17,16 +17,14 @@
 
 HANDLE SingletonMutex;
 
-// Disable hooking of studio process until it's complete.
-std::vector<HANDLE> GetCaelusProcesses(bool include_client = true) //, bool include_studio = true)
+std::vector<HANDLE> GetCaelusProcesses(bool include_client = true, bool include_studio = true)
 {
 	std::vector<HANDLE> result;
 	if (include_client)
 	{
-		for (HANDLE handle : ProcUtil::GetProcessesByImageName("KitsuKitsuPlayerBeta.exe")) result.emplace_back(handle);
+		for (HANDLE handle : ProcUtil::GetProcessesByImageName("CaelusPlayerBeta.exe")) result.emplace_back(handle);
 	}
-	// Disabled for now since Studio is not complete.
-	//if (include_studio) for (HANDLE handle : ProcUtil::GetProcessesByImageName("RobloxStudioBeta.exe")) result.emplace_back(handle);
+	if (include_studio) for (HANDLE handle : ProcUtil::GetProcessesByImageName("CaelusStudioBeta.exe")) result.emplace_back(handle);
 	return result;
 }
 
@@ -316,8 +314,8 @@ DWORD WINAPI WatchThread(LPVOID)
 	printf("Watch thread started\n");
 
 	while (1)
-	{																// Disable hooking of studio process until it's complete.
-		auto processes = GetCaelusProcesses(Settings::UnlockClient); //, Settings::UnlockStudio);
+	{
+		auto processes = GetCaelusProcesses(Settings::UnlockClient, Settings::UnlockStudio);
 
 		for (auto& process : processes)
 		{

@@ -26,8 +26,7 @@ namespace Settings
 	unsigned char FPSCapSelection = 0;
 	double FPSCap = 0.0;
 	bool UnlockClient = true;
-	//Disable studio setting until studio is complete
-	//bool UnlockStudio = false;
+	bool UnlockStudio = true;
 	bool CheckForUpdates = true;
 	bool NonBlockingErrors = true;
 	bool SilentErrors = false;
@@ -64,9 +63,8 @@ namespace Settings
 						FPSCap = std::stod(value);
 					else if (key == "UnlockClient")
 						UnlockClient = std::stoi(value) != 0;
-					//Disable studio setting until studio is complete
-					//else if (key == "UnlockStudio")
-					//	UnlockStudio = std::stoi(value) != 0;
+					else if (key == "UnlockStudio")
+						UnlockStudio = std::stoi(value) != 0;
 					else if (key == "CheckForUpdates")
 						CheckForUpdates = std::stoi(value) != 0;
 					else if (key == "NonBlockingErrors")
@@ -93,8 +91,7 @@ namespace Settings
 		printf("Saving settings to file...\n");
 
 		file << "UnlockClient=" << std::to_string(UnlockClient) << std::endl;
-		//Disable studio setting until studio is complete
-		//file << "UnlockStudio=" << std::to_string(UnlockStudio) << std::endl;
+		file << "UnlockStudio=" << std::to_string(UnlockStudio) << std::endl;
 		file << "FPSCapSelection=" << std::to_string(FPSCapSelection) << std::endl;
 		file << "FPSCap=" << std::to_string(FPSCap) << std::endl;
 		file << "CheckForUpdates=" << std::to_string(CheckForUpdates) << std::endl;

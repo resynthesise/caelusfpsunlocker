@@ -15,8 +15,7 @@
 #define CFU_TRAYMENU_VSYNC		WM_APP + 5
 #define CFU_TRAYMENU_LOADSET	WM_APP + 6
 #define CFU_TRAYMENU_GITHUB		WM_APP + 7
-// Disabled for now since Studio is not complete.
-//#define CFU_TRAYMENU_STUDIO		WM_APP + 8
+#define CFU_TRAYMENU_STUDIO		WM_APP + 8
 #define CFU_TRAYMENU_CFU		WM_APP + 9
 #define CFU_TRAYMENU_ADV_NBE	WM_APP + 10
 #define CFU_TRAYMENU_ADV_SE		WM_APP + 11
@@ -61,8 +60,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			AppendMenu(popup, MF_SEPARATOR, 0, NULL);
 
 			AppendMenu(popup, MF_STRING | (Settings::UnlockClient ? MF_CHECKED : 0), CFU_TRAYMENU_CLIENT, "Unlock Caelus Player");
-			// Disabled for now since Studio is not complete.
-			//AppendMenu(popup, MF_STRING | (Settings::UnlockStudio ? MF_CHECKED : 0), CFU_TRAYMENU_STUDIO, "Unlock Caelus Studio");
+			AppendMenu(popup, MF_STRING | (Settings::UnlockStudio ? MF_CHECKED : 0), CFU_TRAYMENU_STUDIO, "Unlock Caelus Studio");
 			AppendMenu(popup, MF_STRING | (Settings::CheckForUpdates ? MF_CHECKED : 0), CFU_TRAYMENU_CFU, "Check for Updates");
 
 			HMENU submenu = CreatePopupMenu();
@@ -121,13 +119,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					Settings::UnlockClient = !Settings::UnlockClient;
 					CheckMenuItem(popup, CFU_TRAYMENU_CLIENT, Settings::UnlockClient ? MF_CHECKED : MF_UNCHECKED);
 					break;
-
-				// Disabled for now since Studio is not complete.
 				
-				//case CFU_TRAYMENU_STUDIO:
-				//	Settings::UnlockStudio = !Settings::UnlockStudio;
-				//	CheckMenuItem(popup, CFU_TRAYMENU_STUDIO, Settings::UnlockStudio ? MF_CHECKED : MF_UNCHECKED);
-				//	break;
+				case CFU_TRAYMENU_STUDIO:
+					Settings::UnlockStudio = !Settings::UnlockStudio;
+					CheckMenuItem(popup, CFU_TRAYMENU_STUDIO, Settings::UnlockStudio ? MF_CHECKED : MF_UNCHECKED);
+					break;
 
 				case CFU_TRAYMENU_CFU:
 					Settings::CheckForUpdates = !Settings::CheckForUpdates;
